@@ -40,11 +40,14 @@ for each  PR in packageRecords
 	{
 		itemId = i.get("item_id");
 		serialNum = i.get("serial_numbers");
+		serialNum = serialNum.toString();
+		serialNum = serialNum.replaceAll(",",", ");
+		info serialNum;
 		for each  R in invoiceItems
 		{
 			if(R.get("item_id") = itemId)
 			{
-				description = serialNum.toString();
+				description = "Serial Number(s): " + serialNum;
 				lineItem = Map();
 				lineItem.put("description",description);
 				lineItem.put("line_item_id",R.get("line_item_id"));
@@ -56,4 +59,5 @@ for each  PR in packageRecords
 updatemap = Map();
 updatemap.put("line_items",updatelineitems);
 update = zoho.books.updateRecord("Invoices",organizationId,invoiceId,updatemap);
+info update;
 ```
